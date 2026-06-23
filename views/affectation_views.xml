@@ -21,6 +21,11 @@
         <field name="model">it.affectation</field>
         <field name="arch" type="xml">
             <form string="Affectation d'équipement">
+                <header>
+                    <button name="action_complete" string="Clôturer l'affectation" type="object" class="btn-warning" invisible="state != 'active'" confirm="Fermer l'affectation et libérer l'équipement ?"/>
+                    <button name="action_reopen" string="Rouvrir l'affectation" type="object" class="btn-success" invisible="state != 'completed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="active,completed"/>
+                </header>
                 <sheet>
                     <group>
                         <group string="Équipement et Affectation">
@@ -31,7 +36,6 @@
                         <group string="Dates et Statut">
                             <field name="date_start"/>
                             <field name="date_end"/>
-                            <field name="state" widget="badge" decoration-success="state == 'active'" decoration-muted="state == 'completed'"/>
                         </group>
                     </group>
                     <group string="Motif">

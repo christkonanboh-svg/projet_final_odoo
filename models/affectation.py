@@ -45,6 +45,16 @@ class ItAffectation(models.Model):
             self._sync_equipment()
         return res
 
+    def action_complete(self):
+        self.ensure_one()
+        self.write({'state': 'completed', 'date_end': fields.Date.today()})
+        return {'type': 'ir.actions.act_window_close'}
+
+    def action_reopen(self):
+        self.ensure_one()
+        self.write({'state': 'active', 'date_end': False})
+        return {'type': 'ir.actions.act_window_close'}
+
     def _sync_equipment(self):
         for rec in self:
             equip = rec.equipement_id

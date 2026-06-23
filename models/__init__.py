@@ -7,4 +7,3 @@ from . import inherit_stock
 from . import inherit_purchase
 from . import inherit_account
 from . import inherit_maintenance
-from . import report_views
