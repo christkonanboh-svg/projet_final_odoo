@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="it_parc.ItParcDashboard">
+        <div class="it-parc-dashboard">
+            <!-- ── HEADER ─────────────────────────────── -->
+            <div class="itp-header">
+                <div class="itp-header-content">
+                    <div>
+                        <h1 class="itp-title">
+                            <span class="itp-icon">🖥️</span>
+                            Tableau de Bord IT Parc
+                        </h1>
+                        <p class="itp-subtitle">TECHPARK CI — Vue synthétique du parc informatique</p>
+                    </div>
+                    <div class="itp-exports">
+                        <button class="itp-btn-export" t-on-click="exportInventaire">
+                            📥 Inventaire Excel
+                        </button>
+                        <button class="itp-btn-export" t-on-click="exportMaintenanceCosts">
+                            📥 Coûts Maintenance
+                        </button>
+                        <button class="itp-btn-export" t-on-click="exportContratsExpirant">
+                            📥 Contrats Expirants
+                        </button>
+                        <button class="itp-btn-export itp-btn-export--sample" t-on-click="downloadSampleCSV">
+                            📥 CSV Exemple
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── LOADING STATE ─────────────────────── -->
+            <t t-if="!state.loaded">
+                <div class="itp-loading">
+                    <div class="itp-spinner"/>
+                    <p>Chargement des donnees...</p>
+                </div>
+            </t>
+
+            <t t-if="state.error">
+                <div class="itp-error">
+                    <span class="itp-error-icon">⚠️</span>
+                    <p>Erreur lors du chargement des donnees. Essayez d actualiser la page.</p>
+                </div>
+            </t>
+
+            <t t-if="state.loaded and not state.error">
+                <!-- ── KPI CARDS ───────────────────────── -->
+                <div class="itp-kpi-grid">
+
+                    <div class="itp-kpi-card itp-kpi-blue" t-on-click="openEquipements">
+                        <div class="itp-kpi-icon">🖥️</div>
+                        <div class="itp-kpi-body">
+                            <div class="itp-kpi-value"><t t-esc="state.kpis.total"/></div>
+                            <div class="itp-kpi-label">Équipements au total</div>
+                        </div>
+                    </div>
+
+                    <div class="itp-kpi-card itp-kpi-green" t-on-click="openAssigned">
+                        <div class="itp-kpi-icon">✅</div>
+                        <div class="itp-kpi-body">
+                            <div class="itp-kpi-value"><t t-esc="state.kpis.assigned"/></div>
+                            <div class="itp-kpi-label">Équipements affectés</div>
+                        </div>
+                    </div>
+
+                    <div class="itp-kpi-card itp-kpi-orange" t-on-click="openMaintenance">
+                        <div class="itp-kpi-icon">🔧</div>
+                        <div class="itp-kpi-body">
+                            <div class="itp-kpi-value"><t t-esc="state.kpis.in_maintenance"/></div>
+                            <div class="itp-kpi-label">En maintenance</div>
+                        </div>
+                    </div>
+
+                    <div class="itp-kpi-card itp-kpi-red" t-on-click="openAlerts">
+                        <div class="itp-kpi-icon">🔔</div>
+                        <div class="itp-kpi-body">
+                            <div class="itp-kpi-value"><t t-esc="state.kpis.alerts_pending"/></div>
+                            <div class="itp-kpi-label">Alertes à traiter</div>
+                        </div>
+                    </div>
+
+                    <div class="itp-kpi-card itp-kpi-purple" t-on-click="openContracts">
+                        <div class="itp-kpi-icon">📋</div>
+                        <div class="itp-kpi-body">
+                            <div class="itp-kpi-value"><t t-esc="state.kpis.contracts_alert"/></div>
+                            <div class="itp-kpi-label">Contrats en alerte (60j)</div>
+                        </div>
+                    </div>
+
+                    <div class="itp-kpi-card itp-kpi-teal" t-on-click="openInterventions">
+                        <div class="itp-kpi-icon">💰</div>
+                        <div class="itp-kpi-body">
+                            <div class="itp-kpi-value itp-kpi-value--small">
+                                <t t-esc="state.kpis.total_cost_year.toLocaleString('fr-FR', {maximumFractionDigits: 0})"/>
+                            </div>
+                            <div class="itp-kpi-label">FCFA — Coût maintenance (année)</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── GRAPHIQUES ─────────────────────── -->
+                <div class="itp-charts-grid">
+
+                    <div class="itp-chart-card">
+                        <h3 class="itp-chart-title">📊 Coûts de maintenance mensuelle (12 derniers mois)</h3>
+                        <div class="itp-chart-container">
+                            <canvas t-ref="chartMaintenance"/>
+                        </div>
+                    </div>
+
+                    <div class="itp-chart-card">
+                        <h3 class="itp-chart-title">🍩 Répartition du parc par catégorie</h3>
+                        <div class="itp-chart-container">
+                            <canvas t-ref="chartCategories"/>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

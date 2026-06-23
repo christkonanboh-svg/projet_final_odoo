@@ -1,0 +1,227 @@
+// ============================================================
+// IT PARC Dashboard - Styles personnalisés
+// ============================================================
+
+.it-parc-dashboard {
+    --itp-primary: #1e3a5f;
+    --itp-primary-light: #2563eb;
+    --itp-green: #16a34a;
+    --itp-orange: #d97706;
+    --itp-red: #dc2626;
+    --itp-purple: #7c3aed;
+    --itp-teal: #0891b2;
+    --itp-bg: #f1f5f9;
+    --itp-card-bg: #ffffff;
+    --itp-radius: 14px;
+    --itp-shadow: 0 4px 20px rgba(30, 58, 95, 0.10);
+    --itp-shadow-hover: 0 8px 32px rgba(30, 58, 95, 0.20);
+
+    background: var(--itp-bg);
+    padding: 24px;
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+    // ── HEADER ──────────────────────────────────────────────
+    .itp-header {
+        background: linear-gradient(135deg, var(--itp-primary) 0%, #2563eb 100%);
+        border-radius: var(--itp-radius);
+        padding: 28px 32px;
+        margin-bottom: 28px;
+        box-shadow: var(--itp-shadow);
+
+        .itp-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .itp-title {
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0 0 6px 0;
+            letter-spacing: -0.5px;
+
+            .itp-icon { margin-right: 10px; font-size: 28px; }
+        }
+
+        .itp-subtitle {
+            color: rgba(255, 255, 255, 0.75);
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .itp-exports {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .itp-btn-export {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1.5px solid rgba(255, 255, 255, 0.40);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            backdrop-filter: blur(4px);
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.28);
+                border-color: rgba(255, 255, 255, 0.70);
+                transform: translateY(-1px);
+            }
+        }
+    }
+
+    // ── LOADING ─────────────────────────────────────────────
+    .itp-loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 20px;
+        color: var(--itp-primary);
+
+        .itp-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(30, 58, 95, 0.15);
+            border-top-color: var(--itp-primary-light);
+            border-radius: 50%;
+            animation: itp-spin 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        p { font-size: 15px; opacity: 0.7; margin: 0; }
+    }
+
+    // ── ERROR ───────────────────────────────────────────────
+    .itp-error {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 60px 20px;
+        color: var(--itp-red);
+        font-size: 15px;
+        font-weight: 500;
+
+        .itp-error-icon { font-size: 28px; }
+        p { margin: 0; }
+    }
+
+    @keyframes itp-spin {
+        to { transform: rotate(360deg); }
+    }
+
+    // ── KPI GRID ────────────────────────────────────────────
+    .itp-kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 18px;
+        margin-bottom: 28px;
+    }
+
+    .itp-kpi-card {
+        background: var(--itp-card-bg);
+        border-radius: var(--itp-radius);
+        padding: 22px 20px;
+        box-shadow: var(--itp-shadow);
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border-left: 5px solid transparent;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            opacity: 0.07;
+            transform: translate(20px, -20px);
+        }
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--itp-shadow-hover);
+        }
+
+        &.itp-kpi-blue   { border-left-color: var(--itp-primary); &::before { background: var(--itp-primary); } }
+        &.itp-kpi-green  { border-left-color: var(--itp-green);   &::before { background: var(--itp-green); } }
+        &.itp-kpi-orange { border-left-color: var(--itp-orange);  &::before { background: var(--itp-orange); } }
+        &.itp-kpi-red    { border-left-color: var(--itp-red);     &::before { background: var(--itp-red); } }
+        &.itp-kpi-purple { border-left-color: var(--itp-purple);  &::before { background: var(--itp-purple); } }
+        &.itp-kpi-teal   { border-left-color: var(--itp-teal);    &::before { background: var(--itp-teal); } }
+
+        .itp-kpi-icon {
+            font-size: 32px;
+            min-width: 44px;
+            text-align: center;
+        }
+
+        .itp-kpi-body {
+            flex: 1;
+        }
+
+        .itp-kpi-value {
+            font-size: 34px;
+            font-weight: 800;
+            color: var(--itp-primary);
+            line-height: 1;
+            letter-spacing: -1px;
+
+            &--small { font-size: 22px; }
+        }
+
+        .itp-kpi-label {
+            font-size: 12.5px;
+            color: #6b7280;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+    }
+
+    // ── CHARTS GRID ─────────────────────────────────────────
+    .itp-charts-grid {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 18px;
+
+        @media (max-width: 1024px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .itp-chart-card {
+        background: var(--itp-card-bg);
+        border-radius: var(--itp-radius);
+        padding: 24px;
+        box-shadow: var(--itp-shadow);
+
+        .itp-chart-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--itp-primary);
+            margin: 0 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .itp-chart-container {
+            height: 300px;
+            position: relative;
+        }
+    }
+}

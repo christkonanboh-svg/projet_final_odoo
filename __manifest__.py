@@ -1,0 +1,55 @@
+{
+    'name': 'Gestion du Parc Informatique (IT Parc)',
+    'version': '18.0.1.0.1',
+    'category': 'IT',
+    'summary': 'Gestion complète du parc informatique de TECHPARK CI',
+    'description': """
+Module personnalisé de gestion de parc informatique pour TECHPARK CI.
+Permet d'assurer la traçabilité des équipements, les affectations aux employés,
+le suivi des interventions de maintenance, la gestion des contrats fournisseurs
+et des alertes automatiques.
+    """,
+    'author': 'TECHPARK CI',
+    'depends': [
+        'base',
+        'hr',
+        'mail',
+        'contacts',
+        'web',
+    ],
+    'data': [
+        'security/security_groups.xml',
+        'security/ir.model.access.csv',
+        'security/ir_rules.xml',
+        'data/ir_cron_data.xml',
+        'wizards/reassign_wizard_views.xml',
+        'wizards/contrat_renew_wizard_views.xml',
+        'wizards/scan_alerts_wizard_views.xml',
+        'wizards/import_wizard_views.xml',
+        'wizards/report_wizards_views.xml',
+        'views/equipement_views.xml',
+        'views/affectation_views.xml',
+        'views/intervention_views.xml',
+        'views/contrat_views.xml',
+        'views/alerte_views.xml',
+        'report/equipement_reports.xml',
+        'report/equipement_report_templates.xml',
+        'views/dashboard_action.xml',
+        'views/menu_views.xml',
+    ],
+    'demo': [
+        'data/it_parc_demo.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'it_parc/static/src/components/dashboard/dashboard.js',
+            'it_parc/static/src/components/dashboard/dashboard.scss',
+        ],
+        'web.assets_qweb': [
+            'it_parc/static/src/components/dashboard/dashboard.xml',
+        ],
+    },
+    'installable': True,
+    'application': True,
+    'license': 'LGPL-3',
+}
