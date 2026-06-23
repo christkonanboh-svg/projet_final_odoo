@@ -42,11 +42,10 @@ et des alertes automatiques.
     ],
     'assets': {
         'web.assets_backend': [
+            '/web/static/lib/Chart/Chart.js',
             'it_parc/static/src/components/dashboard/dashboard.js',
-            'it_parc/static/src/components/dashboard/dashboard.scss',
-        ],
-        'web.assets_qweb': [
             'it_parc/static/src/components/dashboard/dashboard.xml',
+            'it_parc/static/src/components/dashboard/dashboard.scss',
         ],
     },
     'installable': True,

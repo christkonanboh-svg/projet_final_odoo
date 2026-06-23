@@ -44,7 +44,8 @@
                 </div>
             </t>
 
-            <t t-if="state.loaded and not state.error">
+            <t t-if="state.loaded">
+                <t t-if="!state.error">
                 <!-- ── KPI CARDS ───────────────────────── -->
                 <div class="itp-kpi-grid">
 
@@ -118,6 +119,7 @@
                     </div>
 
                 </div>
+            </t>
             </t>
         </div>
     </t>

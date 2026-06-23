@@ -1,8 +1,9 @@
 /** @odoo-module **/
-import { Component, useState, onMounted, useRef, onWillStart } from "@odoo/owl";
+import { Component, useState, onMounted, useRef, onPatched } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { rpc } from "@web/core/network/rpc";
+import { loadJS } from "@web/core/assets";
 
 export class ItParcDashboard extends Component {
     static template = "it_parc.ItParcDashboard";
@@ -16,6 +17,7 @@ export class ItParcDashboard extends Component {
         this.state = useState({
             loaded: false,
             error: false,
+            charts_ready: false,
             kpis: {
                 total: 0,
                 assigned: 0,
@@ -31,6 +33,12 @@ export class ItParcDashboard extends Component {
         onMounted(async () => {
             await this._loadData();
         });
+
+        onPatched(() => {
+            if (this.state.charts_ready) {
+                this._renderCharts();
+            }
+        });
     }
 
     async _loadData() {
@@ -40,7 +48,7 @@ export class ItParcDashboard extends Component {
             this.state.chart_maintenance = data.chart_maintenance;
             this.state.chart_categories = data.chart_categories;
             this.state.loaded = true;
-            await this._renderCharts();
+            this.state.charts_ready = true;
         } catch (e) {
             console.error("Erreur dashboard:", e);
             this.state.error = true;
@@ -50,10 +58,15 @@ export class ItParcDashboard extends Component {
     }
 
     async _renderCharts() {
-        if (typeof Chart === "undefined") {
-            console.warn("Chart.js non disponible");
+        try {
+            if (typeof Chart === "undefined") {
+                await loadJS("/web/static/lib/Chart/Chart.js");
+            }
+        } catch (e) {
+            console.error("Chart.js loading failed:", e);
             return;
         }
+        if (typeof Chart === "undefined") return;
 
         const renderOpts = {
             responsive: true,
