@@ -3,3 +3,7 @@ from . import affectation
 from . import intervention
 from . import contrat
 from . import alerte
+from . import inherit_stock
+from . import inherit_purchase
+from . import inherit_account
+from . import inherit_maintenance

@@ -4,6 +4,7 @@ from datetime import timedelta
 class ItAlerte(models.Model):
     _name = 'it.alerte'
     _description = "Alerte de garantie / contrat"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'date_expiration asc'
 
     name = fields.Char(string='Sujet', required=True)

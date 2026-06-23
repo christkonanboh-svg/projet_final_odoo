@@ -14,6 +14,7 @@ class ItIntervention(models.Model):
     duration = fields.Float(string='Durée (heures)', compute='_compute_duration', store=True)
     cost = fields.Float(string='Coût de maintenance (FCFA)', tracking=True)
     report = fields.Html(string="Rapport d'intervention")
+    maintenance_request_id = fields.Many2one('maintenance.request', string='Demande de maintenance', ondelete='set null', tracking=True)
     type = fields.Selection([
         ('corrective', 'Corrective'),
         ('preventive', 'Préventive')

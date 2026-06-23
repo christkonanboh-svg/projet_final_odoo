@@ -32,6 +32,7 @@
                             <field name="equipement_id"/>
                             <field name="technician_id"/>
                             <field name="type"/>
+                            <field name="maintenance_request_id" options="{'no_create': True}"/>
                         </group>
                         <group string="Dates et Durée">
                             <field name="date_start"/>

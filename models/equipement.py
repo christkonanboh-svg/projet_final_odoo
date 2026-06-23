@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 class ItEquipementCategory(models.Model):
     _name = 'it.equipement.category'
     _description = "Catégorie d'équipement informatique"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'name'
 
     name = fields.Char(string='Nom de la catégorie', required=True)
@@ -18,6 +19,7 @@ class ItEquipementCategory(models.Model):
 class ItLocation(models.Model):
     _name = 'it.location'
     _description = "Localisation physique de l'équipement"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'name'
 
     name = fields.Char(string='Nom du site', required=True)
@@ -52,6 +54,9 @@ class ItEquipement(models.Model):
 
     employee_id = fields.Many2one('hr.employee', string='Employé actuel', tracking=True, readonly=True)
     department_id = fields.Many2one('hr.department', string='Département actuel', tracking=True, readonly=True)
+    product_id = fields.Many2one('product.product', string='Article lié', tracking=True, help="Produit stock correspondant à cet équipement")
+    purchase_order_id = fields.Many2one('purchase.order', string='Bon de commande', tracking=True, help="Bon de commande d'achat de cet équipement")
+    invoice_id = fields.Many2one('account.move', string='Facture', tracking=True, help="Facture d'achat de cet équipement")
     description = fields.Text(string='Description technique')
     
     affectation_ids = fields.One2many('it.affectation', 'equipement_id', string='Historique des affectations')
