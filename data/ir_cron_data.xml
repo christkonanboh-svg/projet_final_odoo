@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Séquence pour les interventions -->
+    <record id="seq_it_intervention" model="ir.sequence">
+        <field name="name">Intervention IT</field>
+        <field name="code">it.intervention</field>
+        <field name="prefix">INT/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Tâche planifiée : scan quotidien des expirations (garanties + contrats) -->
+    <record id="cron_it_parc_scan_alerts" model="ir.cron">
+        <field name="name">IT Parc - Scan quotidien des alertes d'expiration</field>
+        <field name="model_id" ref="model_it_alerte"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_scan_expirations()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+</odoo>

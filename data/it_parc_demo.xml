@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===================================================== -->
+    <!-- CATÉGORIES D'ÉQUIPEMENTS                               -->
+    <!-- ===================================================== -->
+    <record id="cat_ordinateur_bureau" model="it.equipement.category">
+        <field name="name">Ordinateur de bureau</field>
+        <field name="description">Postes de travail fixes</field>
+    </record>
+    <record id="cat_ordinateur_portable" model="it.equipement.category">
+        <field name="name">Ordinateur portable</field>
+        <field name="description">Laptops et ultrabooks</field>
+    </record>
+    <record id="cat_serveur" model="it.equipement.category">
+        <field name="name">Serveur</field>
+        <field name="description">Serveurs physiques et virtuels</field>
+    </record>
+    <record id="cat_reseau" model="it.equipement.category">
+        <field name="name">Équipement réseau</field>
+        <field name="description">Switchs, routeurs, bornes Wi-Fi</field>
+    </record>
+    <record id="cat_imprimante" model="it.equipement.category">
+        <field name="name">Imprimante</field>
+        <field name="description">Imprimantes et multifonctions</field>
+    </record>
+
+    <!-- ===================================================== -->
+    <!-- LOCALISATIONS                                          -->
+    <!-- ===================================================== -->
+    <record id="loc_cocody" model="it.location">
+        <field name="name">Abidjan - Cocody (Siège)</field>
+        <field name="address">Rue des Jardins, Cocody, Abidjan</field>
+    </record>
+    <record id="loc_bouake" model="it.location">
+        <field name="name">Bouaké (Antenne)</field>
+        <field name="address">Avenue Houphouët-Boigny, Bouaké</field>
+    </record>
+
+    <!-- ===================================================== -->
+    <!-- ÉQUIPEMENTS (10)                                       -->
+    <!-- ===================================================== -->
+    <record id="equip_01" model="it.equipement">
+        <field name="name">Dell OptiPlex 7090</field>
+        <field name="serial_number">DELL-OPT-001</field>
+        <field name="category_id" ref="cat_ordinateur_bureau"/>
+        <field name="location_id" ref="loc_cocody"/>
+        <field name="purchase_value">285000</field>
+        <field name="purchase_date">2023-06-15</field>
+        <field name="warranty_date">2026-06-15</field>
+        <field name="state">assigned</field>
+        <field name="description">Intel Core i5-11500, 16 Go RAM, 512 Go SSD, Windows 11 Pro</field>
+    </record>
+
+    <record id="equip_02" model="it.equipement">
+        <field name="name">HP EliteBook 840 G9</field>
+        <field name="serial_number">HP-ELB-002</field>
+        <field name="category_id" ref="cat_ordinateur_portable"/>
+        <field name="location_id" ref="loc_cocody"/>
+        <field name="purchase_value">495000</field>
+        <field name="purchase_date">2024-01-10</field>
+        <field name="warranty_date">2027-01-10</field>
+        <field name="state">assigned</field>
+        <field name="description">Intel Core i7-1265U, 32 Go RAM, 1 To SSD, Windows 11 Pro</field>
+    </record>
+
+    <record id="equip_03" model="it.equipement">
+        <field name="name">Lenovo ThinkPad X1 Carbon</field>
+        <field name="serial_number">LEN-X1C-003</field>
+        <field name="category_id" ref="cat_ordinateur_portable"/>
+        <field name="location_id" ref="loc_bouake"/>
+        <field name="purchase_value">620000</field>
+        <field name="purchase_date">2022-09-20</field>
+        <field name="warranty_date">2025-09-20</field>
+        <field name="state">maintenance</field>
+        <field name="description">Intel Core i7-1260P, 16 Go RAM, 512 Go NVMe</field>
+    </record>
+
+    <record id="equip_04" model="it.equipement">
+        <field name="name">Dell PowerEdge R750</field>
+        <field name="serial_number">DELL-PE-004</field>
+        <field name="category_id" ref="cat_serveur"/>
+        <field name="location_id" ref="loc_cocody"/>
+        <field name="purchase_value">3500000</field>
+        <field name="purchase_date">2023-03-01</field>
+        <field name="warranty_date">2026-03-01</field>
+        <field name="state">assigned</field>
+        <field name="description">Dual Xeon Silver 4310, 128 Go ECC RAM, 6x 1,8 To SAS, RAID 10</field>
+    </record>
+
+    <record id="equip_05" model="it.equipement">
+        <field name="name">Cisco Catalyst 2960-X</field>
+        <field name="serial_number">CISCO-SW-005</field>
+        <field name="category_id" ref="cat_reseau"/>
+        <field name="location_id" ref="loc_cocody"/>
+        <field name="purchase_value">450000</field>
+        <field name="purchase_date">2021-11-15</field>
+        <field name="warranty_date">2024-11-15</field>
+        <field name="state">assigned</field>
+        <field name="description">Switch 48 ports Gigabit, 4 SFP uplink</field>
+    </record>
+
+    <record id="equip_06" model="it.equipement">
+        <field name="name">HP LaserJet Pro M428fdw</field>
+        <field name="serial_number">HP-LJ-006</field>
+        <field name="category_id" ref="cat_imprimante"/>
+        <field name="location_id" ref="loc_cocody"/>
+        <field name="purchase_value">180000</field>
+        <field name="purchase_date">2022-04-05</field>
+        <field name="warranty_date">2025-04-05</field>
+        <field name="state">assigned</field>
+        <field name="description">Imprimante multifonction laser monochrome, recto-verso automatique</field>
+    </record>
+
+    <record id="equip_07" model="it.equipement">
+        <field name="name">Asus ZenBook 14</field>
+        <field name="serial_number">ASUS-ZB-007</field>
+        <field name="category_id" ref="cat_ordinateur_portable"/>
+        <field name="location_id" ref="loc_bouake"/>
+        <field name="purchase_value">380000</field>
+        <field name="purchase_date">2023-08-22</field>
+        <field name="warranty_date">2026-08-22</field>
+        <field name="state">assigned</field>
+        <field name="description">AMD Ryzen 5 7530U, 16 Go RAM, 512 Go SSD</field>
+    </record>
+
+    <record id="equip_08" model="it.equipement">
+        <field name="name">Ubiquiti UniFi AP AC Pro</field>
+        <field name="serial_number">UB-AP-008</field>
+        <field name="category_id" ref="cat_reseau"/>
+        <field name="location_id" ref="loc_bouake"/>
+        <field name="purchase_value">85000</field>
+        <field name="purchase_date">2024-02-14</field>
+        <field name="warranty_date">2026-02-14</field>
+        <field name="state">assigned</field>
+        <field name="description">Borne Wi-Fi dual-band 802.11ac, PoE</field>
+    </record>
+
+    <record id="equip_09" model="it.equipement">
+        <field name="name">Ancien Dell OptiPlex 3050</field>
+        <field name="serial_number">DELL-OLD-009</field>
+        <field name="category_id" ref="cat_ordinateur_bureau"/>
+        <field name="location_id" ref="loc_cocody"/>
+        <field name="purchase_value">150000</field>
+        <field name="purchase_date">2018-01-10</field>
+        <field name="warranty_date">2021-01-10</field>
+        <field name="state">retired</field>
+        <field name="description">Intel Core i5-7500, 8 Go RAM, 256 Go HDD — Mis au rebut</field>
+    </record>
+
+    <record id="equip_10" model="it.equipement">
+        <field name="name">Dell PowerEdge R440 (Bouaké)</field>
+        <field name="serial_number">DELL-PE2-010</field>
+        <field name="category_id" ref="cat_serveur"/>
+        <field name="location_id" ref="loc_bouake"/>
+        <field name="purchase_value">2200000</field>
+        <field name="purchase_date">2022-07-18</field>
+        <field name="warranty_date">2025-07-18</field>
+        <field name="state">assigned</field>
+        <field name="description">Intel Xeon Silver 4210, 64 Go RAM, 4x 2 To SATA</field>
+    </record>
+
+    <!-- ===================================================== -->
+    <!-- INTERVENTIONS (5)                                      -->
+    <!-- ===================================================== -->
+    <record id="interv_01" model="it.intervention">
+        <field name="name">INT/2026/0001</field>
+        <field name="equipement_id" ref="equip_03"/>
+        <field name="type">corrective</field>
+        <field name="date_start">2026-05-10 08:30:00</field>
+        <field name="date_end">2026-05-10 12:00:00</field>
+        <field name="cost">45000</field>
+        <field name="report">&lt;p&gt;Remplacement du disque SSD défaillant. Restauration des données depuis la sauvegarde. Réinstallation de Windows 11.&lt;/p&gt;</field>
+    </record>
+
+    <record id="interv_02" model="it.intervention">
+        <field name="name">INT/2026/0002</field>
+        <field name="equipement_id" ref="equip_05"/>
+        <field name="type">preventive</field>
+        <field name="date_start">2026-04-15 09:00:00</field>
+        <field name="date_end">2026-04-15 10:30:00</field>
+        <field name="cost">15000</field>
+        <field name="report">&lt;p&gt;Mise à jour du firmware du switch. Vérification de la configuration des VLANs. Nettoyage physique.&lt;/p&gt;</field>
+    </record>
+
+    <record id="interv_03" model="it.intervention">
+        <field name="name">INT/2026/0003</field>
+        <field name="equipement_id" ref="equip_04"/>
+        <field name="type">preventive</field>
+        <field name="date_start">2026-03-20 14:00:00</field>
+        <field name="date_end">2026-03-20 17:00:00</field>
+        <field name="cost">0</field>
+        <field name="report">&lt;p&gt;Contrôle de santé des disques (RAID). Vérification des températures. Mise à jour BIOS et iDRAC. Aucune anomalie détectée.&lt;/p&gt;</field>
+    </record>
+
+    <record id="interv_04" model="it.intervention">
+        <field name="name">INT/2026/0004</field>
+        <field name="equipement_id" ref="equip_06"/>
+        <field name="type">corrective</field>
+        <field name="date_start">2026-06-01 11:00:00</field>
+        <field name="date_end">2026-06-01 13:00:00</field>
+        <field name="cost">32000</field>
+        <field name="report">&lt;p&gt;Bourrage papier répété. Remplacement du rouleau d'entraînement et nettoyage complet du circuit papier.&lt;/p&gt;</field>
+    </record>
+
+    <record id="interv_05" model="it.intervention">
+        <field name="name">INT/2026/0005</field>
+        <field name="equipement_id" ref="equip_01"/>
+        <field name="type">corrective</field>
+        <field name="date_start">2026-06-10 09:30:00</field>
+        <field name="date_end">2026-06-10 11:00:00</field>
+        <field name="cost">8000</field>
+        <field name="report">&lt;p&gt;Ordinateur lent au démarrage. Nettoyage du démarrage Windows, suppression des logiciels malveillants, optimisation SSD.&lt;/p&gt;</field>
+    </record>
+
+    <!-- ===================================================== -->
+    <!-- CONTRATS (3)                                           -->
+    <!-- ===================================================== -->
+    <record id="contrat_01" model="it.contrat">
+        <field name="name">CONT/DELL/2024-001</field>
+        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="date_start">2024-01-01</field>
+        <field name="date_end">2026-12-31</field>
+        <field name="amount">1800000</field>
+        <field name="equipement_ids" eval="[(4, ref('equip_04')), (4, ref('equip_10'))]"/>
+    </record>
+
+    <record id="contrat_02" model="it.contrat">
+        <field name="name">CONT/CISCO/2025-002</field>
+        <field name="partner_id" ref="base.res_partner_4"/>
+        <field name="date_start">2025-01-01</field>
+        <field name="date_end">2026-07-15</field>
+        <field name="amount">350000</field>
+        <field name="equipement_ids" eval="[(4, ref('equip_05')), (4, ref('equip_08'))]"/>
+    </record>
+
+    <record id="contrat_03" model="it.contrat">
+        <field name="name">CONT/HP/2026-003</field>
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="date_start">2026-01-01</field>
+        <field name="date_end">2026-06-30</field>
+        <field name="amount">480000</field>
+        <field name="equipement_ids" eval="[(4, ref('equip_02')), (4, ref('equip_06'))]"/>
+    </record>
+</odoo>
