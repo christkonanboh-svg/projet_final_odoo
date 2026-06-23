@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_it_scan_alerts_wizard_form" model="ir.ui.view">
+        <field name="name">it.scan.alerts.wizard.form</field>
+        <field name="model">it.scan.alerts.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Déclencher le scan des expirations">
+                <sheet>
+                    <group>
+                        <field name="delay_days"/>
+                    </group>
+                    <p class="text-muted">
+                        Ce scan vérifiera tous les équipements dont la garantie expire sous le délai indiqué, ainsi que les contrats arrivant à échéance, et créera des alertes pour les nouveaux éléments détectés.
+                    </p>
+                </sheet>
+                <footer>
+                    <button name="action_confirm" string="Lancer le scan" type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_it_scan_alerts_wizard" model="ir.actions.act_window">
+        <field name="name">Scan des alertes d'expiration</field>
+        <field name="res_model">it.scan.alerts.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

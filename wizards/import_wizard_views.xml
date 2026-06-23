@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_it_import_wizard_form" model="ir.ui.view">
+        <field name="name">it.import.wizard.form</field>
+        <field name="model">it.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importer les équipements (CSV)">
+                <sheet>
+                    <group>
+                        <field name="csv_file" filename="csv_filename"/>
+                        <field name="csv_filename" invisible="1"/>
+                    </group>
+                    <group string="Rapport d'importation" invisible="not report_text">
+                        <field name="report_text" readonly="1" force_save="1" nolabel="1"/>
+                    </group>
+                    <div class="text-muted" invisible="report_text">
+                        <p>Le fichier CSV doit contenir les colonnes suivantes séparées par une virgule (,) ou un point-virgule (;) :</p>
+                        <ul>
+                            <li><b>Nom</b> : Libellé de l'équipement (ex: Ordinateur Dell G15)</li>
+                            <li><b>Numéro de Série</b> : Unique (ex: SN123456)</li>
+                            <li><b>Catégorie</b> : Nom de la catégorie (ex: Ordinateur portable)</li>
+                            <li><b>Valeur</b> : Prix d'achat en FCFA (ex: 450000)</li>
+                            <li><b>Date Achat</b> : Date au format YYYY-MM-DD (ex: 2026-01-15)</li>
+                            <li><b>Garantie</b> : Date de fin de garantie YYYY-MM-DD (ex: 2028-01-15)</li>
+                            <li><b>Localisation</b> : Site physique (ex: Abidjan-Cocody)</li>
+                            <li><b>État</b> : Brouillon, Affecté, En maintenance ou Retiré</li>
+                            <li><b>Employé</b> : Nom complet de l'employé pour l'affectation automatique (ex: Konan Boh Christ)</li>
+                            <li><b>Département</b> : Nom du département (ex: IT)</li>
+                        </ul>
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_import" string="Lancer l'importation" type="object" class="btn-primary" invisible="report_text"/>
+                    <button string="Fermer" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_it_import_wizard" model="ir.actions.act_window">
+        <field name="name">Importation en masse (CSV)</field>
+        <field name="res_model">it.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

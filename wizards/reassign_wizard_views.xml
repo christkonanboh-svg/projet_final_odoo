@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_it_reassign_wizard_form" model="ir.ui.view">
+        <field name="name">it.reassign.wizard.form</field>
+        <field name="model">it.reassign.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Réaffecter l'équipement">
+                <sheet>
+                    <group>
+                        <field name="equipement_id" readonly="1" force_save="1"/>
+                        <field name="employee_id"/>
+                        <field name="department_id"/>
+                        <field name="reason" placeholder="Ex: Changement de poste, mutation de service..."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm" string="Confirmer la réaffectation" type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_it_reassign_wizard" model="ir.actions.act_window">
+        <field name="name">Réaffecter l'équipement</field>
+        <field name="res_model">it.reassign.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
