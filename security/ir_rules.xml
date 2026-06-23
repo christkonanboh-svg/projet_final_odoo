@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Règle globale pour voir tous les équipements (utile si multi-société plus tard) -->
+    <record id="rule_it_equipement_all" model="ir.rule">
+        <field name="name">Tous les équipements</field>
+        <field name="model_id" ref="model_it_equipement"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_it_technicien')), (4, ref('group_it_manager'))]"/>
+    </record>
+
+    <!-- Seul le manager peut modifier les alertes traitées -->
+    <record id="rule_it_alerte_manager_only" model="ir.rule">
+        <field name="name">Modification des alertes traitées par le Manager</field>
+        <field name="model_id" ref="model_it_alerte"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_it_manager'))]"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+</odoo>
