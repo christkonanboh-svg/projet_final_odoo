@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- =================== MENU RACINE =================== -->
+    <menuitem id="menu_it_parc_root"
+              name="IT Parc"
+              sequence="10"
+              groups="it_parc.group_it_technicien"/>
+
+    <!-- =================== TABLEAU DE BORD =================== -->
+    <menuitem id="menu_it_parc_dashboard"
+              name="Tableau de Bord"
+              parent="menu_it_parc_root"
+              sequence="5"
+              action="action_it_parc_dashboard"
+              groups="it_parc.group_it_technicien"/>
+
+    <!-- =================== ÉQUIPEMENTS =================== -->
+    <menuitem id="menu_it_equipements"
+              name="Équipements"
+              parent="menu_it_parc_root"
+              sequence="10"
+              groups="it_parc.group_it_technicien"/>
+
+    <menuitem id="menu_it_equipement_list"
+              name="Tous les équipements"
+              parent="menu_it_equipements"
+              action="action_it_equipement"
+              sequence="10"
+              groups="it_parc.group_it_technicien"/>
+
+    <menuitem id="menu_it_affectations"
+              name="Historique des affectations"
+              parent="menu_it_equipements"
+              action="action_it_affectation"
+              sequence="20"
+              groups="it_parc.group_it_manager"/>
+
+    <menuitem id="menu_it_categories"
+              name="Catégories"
+              parent="menu_it_equipements"
+              action="action_it_equipement_category"
+              sequence="30"
+              groups="it_parc.group_it_manager"/>
+
+    <menuitem id="menu_it_locations"
+              name="Localisations / Sites"
+              parent="menu_it_equipements"
+              action="action_it_location"
+              sequence="40"
+              groups="it_parc.group_it_manager"/>
+
+    <!-- =================== MAINTENANCE =================== -->
+    <menuitem id="menu_it_maintenance"
+              name="Maintenance"
+              parent="menu_it_parc_root"
+              sequence="20"
+              groups="it_parc.group_it_technicien"/>
+
+    <menuitem id="menu_it_interventions"
+              name="Interventions"
+              parent="menu_it_maintenance"
+              action="action_it_intervention"
+              sequence="10"
+              groups="it_parc.group_it_technicien"/>
+
+    <!-- =================== CONTRATS =================== -->
+    <menuitem id="menu_it_contracts"
+              name="Contrats"
+              parent="menu_it_parc_root"
+              sequence="30"
+              groups="it_parc.group_it_manager"/>
+
+    <menuitem id="menu_it_contrat_list"
+              name="Contrats fournisseurs"
+              parent="menu_it_contracts"
+              action="action_it_contrat"
+              sequence="10"
+              groups="it_parc.group_it_manager"/>
+
+    <!-- =================== ALERTES =================== -->
+    <menuitem id="menu_it_alertes"
+              name="Alertes"
+              parent="menu_it_parc_root"
+              sequence="40"
+              groups="it_parc.group_it_technicien"/>
+
+    <menuitem id="menu_it_alerte_list"
+              name="Alertes d'expiration"
+              parent="menu_it_alertes"
+              action="action_it_alerte"
+              sequence="10"
+              groups="it_parc.group_it_technicien"/>
+
+    <!-- =================== RAPPORTS ET EXPORTS =================== -->
+    <menuitem id="menu_it_rapports"
+              name="Rapports"
+              parent="menu_it_parc_root"
+              sequence="50"
+              groups="it_parc.group_it_manager"/>
+
+    <menuitem id="menu_it_inventory_pdf"
+              name="Inventaire complet (PDF)"
+              parent="menu_it_rapports"
+              action="action_it_inventory_report_wizard"
+              sequence="10"
+              groups="it_parc.group_it_manager"/>
+
+    <menuitem id="menu_it_maintenance_pdf"
+              name="Historique des maintenances (PDF)"
+              parent="menu_it_rapports"
+              action="action_it_maintenance_report_wizard"
+              sequence="20"
+              groups="it_parc.group_it_manager"/>
+
+    <!-- =================== OUTILS (MANAGER) =================== -->
+    <menuitem id="menu_it_tools"
+              name="Outils"
+              parent="menu_it_parc_root"
+              sequence="60"
+              groups="it_parc.group_it_manager"/>
+
+    <menuitem id="menu_it_import_csv"
+              name="Importer des équipements (CSV)"
+              parent="menu_it_tools"
+              action="action_it_import_wizard"
+              sequence="10"
+              groups="it_parc.group_it_manager"/>
+
+    <menuitem id="menu_it_scan_alerts"
+              name="Déclencher le scan des alertes"
+              parent="menu_it_tools"
+              action="action_it_scan_alerts_wizard"
+              sequence="20"
+              groups="it_parc.group_it_manager"/>
+</odoo>

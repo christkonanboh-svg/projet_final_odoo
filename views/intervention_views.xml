@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_it_intervention_tree" model="ir.ui.view">
+        <field name="name">it.intervention.tree</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <list string="Interventions de maintenance" decoration-warning="type == 'corrective'" decoration-info="type == 'preventive'">
+                <field name="name"/>
+                <field name="equipement_id"/>
+                <field name="technician_id"/>
+                <field name="type" widget="badge" decoration-warning="type == 'corrective'" decoration-info="type == 'preventive'"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="duration" widget="float_time"/>
+                <field name="cost" sum="Coût total"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_it_intervention_form" model="ir.ui.view">
+        <field name="name">it.intervention.form</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <form string="Intervention de maintenance">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Informations">
+                            <field name="equipement_id"/>
+                            <field name="technician_id"/>
+                            <field name="type"/>
+                        </group>
+                        <group string="Dates et Durée">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="duration" widget="float_time" readonly="1"/>
+                            <field name="cost"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Rapport d'intervention" name="report">
+                            <field name="report" placeholder="Décrivez les opérations réalisées, les pièces remplacées, les observations..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_it_intervention_calendar" model="ir.ui.view">
+        <field name="name">it.intervention.calendar</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendrier des interventions" date_start="date_start" date_stop="date_end" color="technician_id" event_limit="5">
+                <field name="equipement_id"/>
+                <field name="technician_id"/>
+                <field name="type"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_it_intervention_search" model="ir.ui.view">
+        <field name="name">it.intervention.search</field>
+        <field name="model">it.intervention</field>
+        <field name="arch" type="xml">
+            <search string="Recherche interventions">
+                <field name="name"/>
+                <field name="equipement_id"/>
+                <field name="technician_id"/>
+                <filter name="type_corrective" string="Correctives" domain="[('type', '=', 'corrective')]"/>
+                <filter name="type_preventive" string="Préventives" domain="[('type', '=', 'preventive')]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Équipement" name="group_by_equipement" context="{'group_by': 'equipement_id'}"/>
+                    <filter string="Technicien" name="group_by_tech" context="{'group_by': 'technician_id'}"/>
+                    <filter string="Type" name="group_by_type" context="{'group_by': 'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_it_intervention" model="ir.actions.act_window">
+        <field name="name">Interventions de maintenance</field>
+        <field name="res_model">it.intervention</field>
+        <field name="view_mode">list,form,calendar</field>
+    </record>
+</odoo>

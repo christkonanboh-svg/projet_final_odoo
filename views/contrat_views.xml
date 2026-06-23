@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_it_contrat_tree" model="ir.ui.view">
+        <field name="name">it.contrat.tree</field>
+        <field name="model">it.contrat</field>
+        <field name="arch" type="xml">
+            <list string="Contrats fournisseurs" decoration-danger="days_remaining &lt; 30" decoration-warning="days_remaining &gt;= 30 and days_remaining &lt;= 60">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="amount" sum="Montant total"/>
+                <field name="days_remaining" string="Jours restants"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_it_contrat_form" model="ir.ui.view">
+        <field name="name">it.contrat.form</field>
+        <field name="model">it.contrat</field>
+        <field name="arch" type="xml">
+            <form string="Contrat fournisseur">
+                <header>
+                    <button name="%(action_it_contrat_renew_wizard)d" string="Renouveler le contrat" type="action" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Référence du contrat..."/></h1>
+                    </div>
+                    <group>
+                        <group string="Fournisseur">
+                            <field name="partner_id"/>
+                        </group>
+                        <group string="Validité et Montant">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="days_remaining" readonly="1"/>
+                            <field name="amount"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Équipements couverts" name="equipements">
+                            <field name="equipement_ids" widget="many2many" options="{'no_create': True}">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="serial_number"/>
+                                    <field name="category_id"/>
+                                    <field name="employee_id"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_it_contrat_search" model="ir.ui.view">
+        <field name="name">it.contrat.search</field>
+        <field name="model">it.contrat</field>
+        <field name="arch" type="xml">
+            <search string="Recherche contrats">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <filter name="expiring_soon" string="Expirant dans 60 jours" domain="[('days_remaining', '&lt;=', 60), ('days_remaining', '&gt;=', 0)]"/>
+                <filter name="expired" string="Expirés" domain="[('days_remaining', '&lt;', 0)]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Fournisseur" name="group_by_partner" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_it_contrat" model="ir.actions.act_window">
+        <field name="name">Contrats fournisseurs</field>
+        <field name="res_model">it.contrat</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

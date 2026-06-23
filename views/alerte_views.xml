@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_it_alerte_tree" model="ir.ui.view">
+        <field name="name">it.alerte.tree</field>
+        <field name="model">it.alerte</field>
+        <field name="arch" type="xml">
+            <list string="Alertes d'expiration" decoration-danger="days_remaining &lt; 0" decoration-warning="days_remaining &gt;= 0 and days_remaining &lt;= 30" decoration-muted="state == 'treated'">
+                <field name="name"/>
+                <field name="type" widget="badge" decoration-info="type == 'warranty'" decoration-warning="type == 'contract'"/>
+                <field name="equipement_id" optional="show"/>
+                <field name="contrat_id" optional="show"/>
+                <field name="date_expiration"/>
+                <field name="days_remaining"/>
+                <field name="state" widget="badge" decoration-danger="state == 'to_treat'" decoration-success="state == 'treated'"/>
+                <button name="action_treat" string="Marquer traité" type="object" class="btn-sm btn-secondary" invisible="state == 'treated'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_it_alerte_form" model="ir.ui.view">
+        <field name="name">it.alerte.form</field>
+        <field name="model">it.alerte</field>
+        <field name="arch" type="xml">
+            <form string="Alerte d'expiration">
+                <header>
+                    <button name="action_treat" string="Marquer comme traitée" type="object" class="btn-primary" invisible="state == 'treated'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="to_treat,treated"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Type et Source">
+                            <field name="type"/>
+                            <field name="equipement_id" invisible="type != 'warranty'"/>
+                            <field name="contrat_id" invisible="type != 'contract'"/>
+                        </group>
+                        <group string="Expiration">
+                            <field name="date_expiration"/>
+                            <field name="days_remaining" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_it_alerte_search" model="ir.ui.view">
+        <field name="name">it.alerte.search</field>
+        <field name="model">it.alerte</field>
+        <field name="arch" type="xml">
+            <search string="Recherche alertes">
+                <field name="name"/>
+                <filter name="to_treat" string="À traiter" domain="[('state', '=', 'to_treat')]"/>
+                <filter name="treated" string="Traitées" domain="[('state', '=', 'treated')]"/>
+                <filter name="warranty" string="Alertes garantie" domain="[('type', '=', 'warranty')]"/>
+                <filter name="contract" string="Alertes contrats" domain="[('type', '=', 'contract')]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Type" name="group_by_type" context="{'group_by': 'type'}"/>
+                    <filter string="Statut" name="group_by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_it_alerte" model="ir.actions.act_window">
+        <field name="name">Alertes</field>
+        <field name="res_model">it.alerte</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_to_treat': 1}</field>
+    </record>
+</odoo>

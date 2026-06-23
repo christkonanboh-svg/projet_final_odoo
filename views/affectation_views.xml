@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_it_affectation_tree" model="ir.ui.view">
+        <field name="name">it.affectation.tree</field>
+        <field name="model">it.affectation</field>
+        <field name="arch" type="xml">
+            <list string="Historique des affectations" decoration-success="state == 'active'" decoration-muted="state == 'completed'">
+                <field name="equipement_id"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="reason"/>
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-muted="state == 'completed'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_it_affectation_form" model="ir.ui.view">
+        <field name="name">it.affectation.form</field>
+        <field name="model">it.affectation</field>
+        <field name="arch" type="xml">
+            <form string="Affectation d'équipement">
+                <sheet>
+                    <group>
+                        <group string="Équipement et Affectation">
+                            <field name="equipement_id"/>
+                            <field name="employee_id"/>
+                            <field name="department_id"/>
+                        </group>
+                        <group string="Dates et Statut">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="state" widget="badge" decoration-success="state == 'active'" decoration-muted="state == 'completed'"/>
+                        </group>
+                    </group>
+                    <group string="Motif">
+                        <field name="reason" nolabel="1" placeholder="Motif de l'affectation..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_it_affectation_search" model="ir.ui.view">
+        <field name="name">it.affectation.search</field>
+        <field name="model">it.affectation</field>
+        <field name="arch" type="xml">
+            <search string="Recherche affectations">
+                <field name="equipement_id"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <filter name="active_only" string="Affectations actives" domain="[('state', '=', 'active')]"/>
+                <filter name="completed" string="Affectations terminées" domain="[('state', '=', 'completed')]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Employé" name="group_by_employee" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Département" name="group_by_department" context="{'group_by': 'department_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_it_affectation" model="ir.actions.act_window">
+        <field name="name">Historique des affectations</field>
+        <field name="res_model">it.affectation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
