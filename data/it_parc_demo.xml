@@ -35,6 +35,18 @@
         <field name="name">Bouaké (Antenne)</field>
         <field name="address">Avenue Houphouët-Boigny, Bouaké</field>
     </record>
+    <record id="loc_plateau" model="it.location">
+        <field name="name">Abidjan - Plateau (Administration)</field>
+        <field name="address">Avenue Noguès, Plateau, Abidjan</field>
+    </record>
+    <record id="loc_abidjan" model="it.location">
+        <field name="name">Abidjan - Zone Industrielle</field>
+        <field name="address">Zone 4, Abidjan</field>
+    </record>
+    <record id="loc_yamoussoukro" model="it.location">
+        <field name="name">Yamoussoukro (Antenne)</field>
+        <field name="address">Boulevard Giscard d'Estaing, Yamoussoukro</field>
+    </record>
 
     <!-- ===================================================== -->
     <!-- ÉQUIPEMENTS (10)                                       -->
@@ -240,5 +252,287 @@
         <field name="date_end">2026-06-30</field>
         <field name="amount">480000</field>
         <field name="equipement_ids" eval="[(4, ref('equip_02')), (4, ref('equip_06'))]"/>
+    </record>
+
+    <!-- ===================================================== -->
+    <!-- DÉPARTEMENTS TECHPARK CI                                -->
+    <!-- ===================================================== -->
+    <record id="dept_dsi" model="hr.department">
+        <field name="name">Direction des Systèmes d'Information</field>
+    </record>
+    <record id="dept_compta" model="hr.department">
+        <field name="name">Comptabilité et Finances</field>
+    </record>
+    <record id="dept_rh" model="hr.department">
+        <field name="name">Ressources Humaines</field>
+    </record>
+    <record id="dept_comm" model="hr.department">
+        <field name="name">Communication et Marketing</field>
+    </record>
+    <record id="dept_commercial" model="hr.department">
+        <field name="name">Commercial et Ventes</field>
+    </record>
+
+    <!-- ===================================================== -->
+    <!-- EMPLOYÉS TECHPARK CI                                    -->
+    <!-- ===================================================== -->
+    <record id="emp_konan" model="hr.employee">
+        <field name="name">KONAN Boh Christ</field>
+        <field name="department_id" ref="dept_dsi"/>
+        <field name="job_title">Directeur DSI</field>
+        <field name="work_email">konan@techpark.ci</field>
+    </record>
+    <record id="emp_diallo" model="hr.employee">
+        <field name="name">DIALLO Amadou</field>
+        <field name="department_id" ref="dept_dsi"/>
+        <field name="job_title">Technicien IT</field>
+        <field name="work_email">diallo@techpark.ci</field>
+    </record>
+    <record id="emp_traore" model="hr.employee">
+        <field name="name">TRAORE Fatoumata</field>
+        <field name="department_id" ref="dept_compta"/>
+        <field name="job_title">Comptable</field>
+        <field name="work_email">ftraore@techpark.ci</field>
+    </record>
+    <record id="emp_koffi" model="hr.employee">
+        <field name="name">KOFFI Jean-Baptiste</field>
+        <field name="department_id" ref="dept_rh"/>
+        <field name="job_title">Responsable RH</field>
+        <field name="work_email">koffi@techpark.ci</field>
+    </record>
+    <record id="emp_nGuessan" model="hr.employee">
+        <field name="name">N'GUESSAN Aya</field>
+        <field name="department_id" ref="dept_comm"/>
+        <field name="job_title">Chargée de Communication</field>
+        <field name="work_email">nguessan@techpark.ci</field>
+    </record>
+    <record id="emp_yapi" model="hr.employee">
+        <field name="name">YAPI Robert</field>
+        <field name="department_id" ref="dept_commercial"/>
+        <field name="job_title">Commercial</field>
+        <field name="work_email">yapi@techpark.ci</field>
+    </record>
+
+    <record id="emp_konan_awa" model="hr.employee">
+        <field name="name">KONAN Awa</field>
+        <field name="department_id" ref="hr.dep_administration"/>
+        <field name="job_title">Assistante de Direction</field>
+        <field name="work_email">awa.konan@techpark.ci</field>
+    </record>
+    <record id="emp_diarra" model="hr.employee">
+        <field name="name">DIARRA Moussa</field>
+        <field name="department_id" ref="hr.dep_management"/>
+        <field name="job_title">Chef de Projet</field>
+        <field name="work_email">moussa.diarra@techpark.ci</field>
+    </record>
+    <record id="emp_kone" model="hr.employee">
+        <field name="name">KONE Ibrahim</field>
+        <field name="department_id" ref="hr.dep_sales"/>
+        <field name="job_title">Responsable Commercial</field>
+        <field name="work_email">ibrahim.kone@techpark.ci</field>
+    </record>
+    <record id="emp_soro" model="hr.employee">
+        <field name="name">SORO Fatoumata</field>
+        <field name="department_id" ref="hr.dep_rd"/>
+        <field name="job_title">Ingenieure R&amp;D</field>
+        <field name="work_email">fatou.soro@techpark.ci</field>
+    </record>
+    <record id="emp_bamba" model="hr.employee">
+        <field name="name">BAMBA Lacina</field>
+        <field name="department_id" ref="hr.dep_rd_ltp"/>
+        <field name="job_title">Chef de Projet Long Terme</field>
+        <field name="work_email">lacina.bamba@techpark.ci</field>
+    </record>
+    <record id="emp_coulibaly" model="hr.employee">
+        <field name="name">COULIBALY Mariam</field>
+        <field name="department_id" ref="hr.dep_ps"/>
+        <field name="job_title">Consultante Senior</field>
+        <field name="work_email">mariam.coulibaly@techpark.ci</field>
+    </record>
+
+    <!-- ===================================================== -->
+    <!-- ÉQUIPEMENTS SUPPLÉMENTAIRES (6 - pour chaque département) -->
+    <!-- ===================================================== -->
+    <record id="equip_11" model="it.equipement">
+        <field name="name">HP ProDesk 400 G9</field>
+        <field name="serial_number">HP-PD-011</field>
+        <field name="category_id" ref="cat_ordinateur_bureau"/>
+        <field name="location_id" ref="loc_plateau"/>
+        <field name="purchase_value">650000</field>
+        <field name="purchase_date">2025-03-15</field>
+        <field name="warranty_date">2028-03-15</field>
+        <field name="state">assigned</field>
+        <field name="description">Intel Core i5-13500, 16 Go RAM, 512 Go SSD - Bureautique standard</field>
+    </record>
+    <record id="equip_12" model="it.equipement">
+        <field name="name">Dell Latitude 5540</field>
+        <field name="serial_number">DELL-LAT-012</field>
+        <field name="category_id" ref="cat_ordinateur_portable"/>
+        <field name="location_id" ref="loc_cocody"/>
+        <field name="purchase_value">850000</field>
+        <field name="purchase_date">2025-06-01</field>
+        <field name="warranty_date">2028-06-01</field>
+        <field name="state">assigned</field>
+        <field name="description">Intel Core i7-1365U, 16 Go RAM, 512 Go SSD — Poste de travail mobile</field>
+    </record>
+    <record id="equip_13" model="it.equipement">
+        <field name="name">HP LaserJet Enterprise M507</field>
+        <field name="serial_number">HP-LJ-013</field>
+        <field name="category_id" ref="cat_imprimante"/>
+        <field name="location_id" ref="loc_plateau"/>
+        <field name="purchase_value">450000</field>
+        <field name="purchase_date">2025-02-10</field>
+        <field name="warranty_date">2028-02-10</field>
+        <field name="state">assigned</field>
+        <field name="description">Imprimante laser monochrome haut volume, recto-verso automatique</field>
+    </record>
+    <record id="equip_14" model="it.equipement">
+        <field name="name">Dell PowerEdge T360</field>
+        <field name="serial_number">DELL-PET-014</field>
+        <field name="category_id" ref="cat_serveur"/>
+        <field name="location_id" ref="loc_cocody"/>
+        <field name="purchase_value">1800000</field>
+        <field name="purchase_date">2025-09-20</field>
+        <field name="warranty_date">2028-09-20</field>
+        <field name="state">assigned</field>
+        <field name="description">Intel Xeon E-2488, 32 Go RAM, 4x 2 To RAID 10 — Serveur fichiers et base de données</field>
+    </record>
+    <record id="equip_15" model="it.equipement">
+        <field name="name">Cisco Meraki MX75</field>
+        <field name="serial_number">CISCO-MX-015</field>
+        <field name="category_id" ref="cat_reseau"/>
+        <field name="location_id" ref="loc_abidjan"/>
+        <field name="purchase_value">1200000</field>
+        <field name="purchase_date">2025-01-05</field>
+        <field name="warranty_date">2028-01-05</field>
+        <field name="state">assigned</field>
+        <field name="description">Pare-feu nouvelle génération, VPN, SD-WAN — Sécurité périmétrique</field>
+    </record>
+    <record id="equip_16" model="it.equipement">
+        <field name="name">Lenovo ThinkCentre M75q</field>
+        <field name="serial_number">LEN-TC-016</field>
+        <field name="category_id" ref="cat_ordinateur_bureau"/>
+        <field name="location_id" ref="loc_yamoussoukro"/>
+        <field name="purchase_value">550000</field>
+        <field name="purchase_date">2025-11-01</field>
+        <field name="warranty_date">2028-11-01</field>
+        <field name="state">assigned</field>
+        <field name="description">AMD Ryzen 5 PRO 5650GE, 16 Go RAM, 256 Go SSD — Poste de travail léger</field>
+    </record>
+
+    <!-- ===================================================== -->
+    <!-- AFFECTATIONS (14)                                       -->
+    <!-- ===================================================== -->
+    <record id="affect_01" model="it.affectation">
+        <field name="equipement_id" ref="equip_01"/>
+        <field name="employee_id" ref="emp_konan"/>
+        <field name="department_id" ref="dept_dsi"/>
+        <field name="date_start">2024-01-15</field>
+        <field name="state">active</field>
+        <field name="reason">Affectation initiale - Poste de travail DSI</field>
+    </record>
+    <record id="affect_02" model="it.affectation">
+        <field name="equipement_id" ref="equip_02"/>
+        <field name="employee_id" ref="emp_traore"/>
+        <field name="department_id" ref="dept_compta"/>
+        <field name="date_start">2024-02-01</field>
+        <field name="state">active</field>
+        <field name="reason">Affectation initiale - Poste comptabilité</field>
+    </record>
+    <record id="affect_03" model="it.affectation">
+        <field name="equipement_id" ref="equip_04"/>
+        <field name="employee_id" ref="emp_konan"/>
+        <field name="department_id" ref="dept_dsi"/>
+        <field name="date_start">2023-03-01</field>
+        <field name="state">active</field>
+        <field name="reason">Serveur principal siège</field>
+    </record>
+    <record id="affect_04" model="it.affectation">
+        <field name="equipement_id" ref="equip_05"/>
+        <field name="employee_id" ref="emp_diallo"/>
+        <field name="department_id" ref="dept_dsi"/>
+        <field name="date_start">2022-01-01</field>
+        <field name="state">active</field>
+        <field name="reason">Switch réseau principal</field>
+    </record>
+    <record id="affect_05" model="it.affectation">
+        <field name="equipement_id" ref="equip_06"/>
+        <field name="employee_id" ref="emp_koffi"/>
+        <field name="department_id" ref="dept_rh"/>
+        <field name="date_start">2022-04-10</field>
+        <field name="state">active</field>
+        <field name="reason">Imprimante partage RH</field>
+    </record>
+    <record id="affect_06" model="it.affectation">
+        <field name="equipement_id" ref="equip_07"/>
+        <field name="employee_id" ref="emp_yapi"/>
+        <field name="department_id" ref="dept_commercial"/>
+        <field name="date_start">2023-09-01</field>
+        <field name="state">active</field>
+        <field name="reason">Poste mobile commercial</field>
+    </record>
+    <record id="affect_07" model="it.affectation">
+        <field name="equipement_id" ref="equip_08"/>
+        <field name="employee_id" ref="emp_nGuessan"/>
+        <field name="department_id" ref="dept_comm"/>
+        <field name="date_start">2024-03-01</field>
+        <field name="state">active</field>
+        <field name="reason">Borne Wi-Fi communication</field>
+    </record>
+    <record id="affect_08" model="it.affectation">
+        <field name="equipement_id" ref="equip_10"/>
+        <field name="employee_id" ref="emp_diallo"/>
+        <field name="department_id" ref="dept_dsi"/>
+        <field name="date_start">2022-08-01</field>
+        <field name="state">active</field>
+        <field name="reason">Serveur antenne Bouaké</field>
+    </record>
+    <record id="affect_09" model="it.affectation">
+        <field name="equipement_id" ref="equip_11"/>
+        <field name="employee_id" ref="emp_konan_awa"/>
+        <field name="department_id" ref="hr.dep_administration"/>
+        <field name="date_start">2025-03-15</field>
+        <field name="state">active</field>
+        <field name="reason">Poste de travail Administration</field>
+    </record>
+    <record id="affect_10" model="it.affectation">
+        <field name="equipement_id" ref="equip_12"/>
+        <field name="employee_id" ref="emp_diarra"/>
+        <field name="department_id" ref="hr.dep_management"/>
+        <field name="date_start">2025-06-01</field>
+        <field name="state">active</field>
+        <field name="reason">Poste mobile Management</field>
+    </record>
+    <record id="affect_11" model="it.affectation">
+        <field name="equipement_id" ref="equip_13"/>
+        <field name="employee_id" ref="emp_kone"/>
+        <field name="department_id" ref="hr.dep_sales"/>
+        <field name="date_start">2025-02-10</field>
+        <field name="state">active</field>
+        <field name="reason">Imprimante partage Service Commercial</field>
+    </record>
+    <record id="affect_12" model="it.affectation">
+        <field name="equipement_id" ref="equip_14"/>
+        <field name="employee_id" ref="emp_soro"/>
+        <field name="department_id" ref="hr.dep_rd"/>
+        <field name="date_start">2025-09-20</field>
+        <field name="state">active</field>
+        <field name="reason">Serveur R&amp;D - Tests et developpement</field>
+    </record>
+    <record id="affect_13" model="it.affectation">
+        <field name="equipement_id" ref="equip_15"/>
+        <field name="employee_id" ref="emp_bamba"/>
+        <field name="department_id" ref="hr.dep_rd_ltp"/>
+        <field name="date_start">2025-01-05</field>
+        <field name="state">active</field>
+        <field name="reason">Pare-feu et sécurité réseau - Projets long terme</field>
+    </record>
+    <record id="affect_14" model="it.affectation">
+        <field name="equipement_id" ref="equip_16"/>
+        <field name="employee_id" ref="emp_coulibaly"/>
+        <field name="department_id" ref="hr.dep_ps"/>
+        <field name="date_start">2025-11-01</field>
+        <field name="state">active</field>
+        <field name="reason">Poste de travail Consultant Senior</field>
     </record>
 </odoo>

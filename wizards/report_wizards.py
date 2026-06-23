@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models
 
 class ItInventoryReportWizard(models.TransientModel):
     _name = 'it.inventory.report.wizard'
@@ -9,11 +9,17 @@ class ItInventoryReportWizard(models.TransientModel):
 
     def action_print_pdf(self):
         self.ensure_one()
-        data = {
-            'category_id': self.category_id.id,
-            'department_id': self.department_id.id,
-        }
-        return self.env.ref('it_parc.action_report_inventory_filtrable').report_action(self, data=data)
+        domain = []
+        if self.category_id:
+            domain.append(('category_id', '=', self.category_id.id))
+        if self.department_id:
+            domain.append(('department_id', '=', self.department_id.id))
+        equipments = self.env['it.equipement'].search(domain)
+        report = self.env.ref('it_parc.action_report_inventory_filtrable')
+        return report.report_action(equipments, data={
+            'category_name': self.category_id.name or 'Toutes',
+            'department_name': self.department_id.name or 'Tous',
+        })
 
 
 class ItMaintenanceReportWizard(models.TransientModel):
@@ -25,8 +31,15 @@ class ItMaintenanceReportWizard(models.TransientModel):
 
     def action_print_pdf(self):
         self.ensure_one()
-        data = {
-            'date_start': self.date_start,
-            'date_end': self.date_end,
-        }
-        return self.env.ref('it_parc.action_report_maintenance_period').report_action(self, data=data)
+        domain = [
+            ('date_start', '>=', self.date_start),
+            ('date_start', '<=', self.date_end),
+        ]
+        interventions = self.env['it.intervention'].search(domain)
+        total_cost = sum(interv.cost or 0 for interv in interventions)
+        report = self.env.ref('it_parc.action_report_maintenance_period')
+        return report.report_action(interventions, data={
+            'date_start': str(self.date_start),
+            'date_end': str(self.date_end),
+            'total_cost': total_cost,
+        })

@@ -12,20 +12,30 @@
         <field name="binding_type">report</field>
     </record>
 
-    <!-- Rapport 2 : Inventaire complet filtrable -->
+    <!-- Rapport 2 : Inventaire complet filtrable (lié au modèle equipement) -->
     <record id="action_report_inventory_filtrable" model="ir.actions.report">
         <field name="name">Rapport d'inventaire</field>
-        <field name="model">it.inventory.report.wizard</field>
+        <field name="model">it.equipement</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">it_parc.report_inventory_filtrable_view</field>
         <field name="report_file">it_parc.report_inventory_filtrable_view</field>
         <field name="print_report_name">'Inventaire_Parc_Informatique'</field>
+        <field name="binding_model_id" ref="model_it_equipement"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Action serveur : Rapport complet sans filtre (utilisé par le menu) -->
+    <record id="action_it_parc_report_all_inventory" model="ir.actions.server">
+        <field name="name">Inventaire complet (PDF)</field>
+        <field name="model_id" ref="model_it_equipement"/>
+        <field name="state">code</field>
+        <field name="code">action = env.ref('it_parc.action_report_inventory_filtrable').report_action(env['it.equipement'].search([]), data={'category_name': 'Toutes', 'department_name': 'Tous'})</field>
     </record>
 
     <!-- Rapport 3 : Historique des maintenances par période -->
     <record id="action_report_maintenance_period" model="ir.actions.report">
         <field name="name">Historique des maintenances</field>
-        <field name="model">it.maintenance.report.wizard</field>
+        <field name="model">it.intervention</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">it_parc.report_maintenance_period_view</field>
         <field name="report_file">it_parc.report_maintenance_period_view</field>

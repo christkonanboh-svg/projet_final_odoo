@@ -44,9 +44,9 @@ et des alertes automatiques.
         'views/inherit_maintenance_views.xml',
         'views/dashboard_action.xml',
         'views/menu_views.xml',
+        'data/it_parc_demo.xml',
     ],
     'demo': [
-        'data/it_parc_demo.xml',
     ],
     'assets': {
         'web.assets_backend': [

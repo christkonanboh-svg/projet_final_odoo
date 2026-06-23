@@ -101,8 +101,15 @@
     <menuitem id="menu_it_inventory_pdf"
               name="Inventaire complet (PDF)"
               parent="menu_it_rapports"
-              action="action_it_inventory_report_wizard"
+              action="action_it_parc_report_all_inventory"
               sequence="10"
+              groups="it_parc.group_it_manager"/>
+
+    <menuitem id="menu_it_inventory_filtre_pdf"
+              name="Inventaire filtré (PDF)"
+              parent="menu_it_rapports"
+              action="action_it_inventory_report_wizard"
+              sequence="15"
               groups="it_parc.group_it_manager"/>
 
     <menuitem id="menu_it_maintenance_pdf"

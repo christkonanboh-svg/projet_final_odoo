@@ -34,4 +34,22 @@ class ItIntervention(models.Model):
         for vals in vals_list:
             if vals.get('name', 'Nouveau') == 'Nouveau':
                 vals['name'] = self.env['ir.sequence'].next_by_code('it.intervention') or 'INT/' + fields.Datetime.now().strftime('%Y%m%d/%H%M%S')
-        return super().create(vals_list)
+        records = super().create(vals_list)
+        for rec in records:
+            if rec.equipement_id and rec.equipement_id.state in ('draft', 'assigned'):
+                rec.equipement_id.write({'state': 'maintenance'})
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        if 'date_end' in vals or 'state' in vals:
+            for rec in self:
+                if rec.date_end and rec.equipement_id and rec.equipement_id.state == 'maintenance':
+                    active_aff = self.env['it.affectation'].search([
+                        ('equipement_id', '=', rec.equipement_id.id),
+                        ('state', '=', 'active'),
+                    ], limit=1)
+                    rec.equipement_id.write({
+                        'state': 'assigned' if active_aff else 'draft',
+                    })
+        return res

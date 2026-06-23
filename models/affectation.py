@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from datetime import date
 
 class ItAffectation(models.Model):
     _name = 'it.affectation'
@@ -31,3 +32,38 @@ class ItAffectation(models.Model):
             if rec.date_start:
                 parts.append(str(rec.date_start))
             rec.display_name = ' - '.join(parts) if parts else f"Affectation #{rec.id}"
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        records._sync_equipment()
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        if 'state' in vals or 'employee_id' in vals or 'department_id' in vals or 'date_end' in vals:
+            self._sync_equipment()
+        return res
+
+    def _sync_equipment(self):
+        for rec in self:
+            equip = rec.equipement_id
+            if not equip:
+                continue
+            if rec.state == 'active':
+                equip.write({
+                    'employee_id': rec.employee_id.id,
+                    'department_id': rec.department_id.id,
+                    'state': 'assigned' if equip.state == 'draft' else equip.state,
+                })
+            else:
+                other_active = self.search([
+                    ('equipement_id', '=', equip.id),
+                    ('state', '=', 'active'),
+                    ('id', '!=', rec.id),
+                ], limit=1)
+                if not other_active:
+                    equip.write({
+                        'employee_id': False,
+                        'department_id': False,
+                    })

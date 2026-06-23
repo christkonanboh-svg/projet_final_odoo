@@ -194,8 +194,8 @@
                             <field name="location_id" options="{'no_open': False, 'no_create': False}"/>
                         </group>
                         <group string="Affectation Actuelle">
-                            <field name="employee_id"/>
-                            <field name="department_id"/>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="department_id" readonly="1"/>
                         </group>
                         <group string="Intégration">
                             <field name="product_id" options="{'no_create': True}"/>

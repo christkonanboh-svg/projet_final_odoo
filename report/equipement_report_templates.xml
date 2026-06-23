@@ -128,8 +128,8 @@
 
                     <h2 class="report-title">Inventaire du Parc Informatique</h2>
                     <div class="filters-info">
-                        Catégorie : <strong><t t-esc="category_name"/></strong> &#160;|&#160;
-                        Département : <strong><t t-esc="department_name"/></strong> &#160;|&#160;
+                        Catégorie : <strong><t t-esc="data.get('category_name', 'Toutes')"/></strong> &#160;|&#160;
+                        Département : <strong><t t-esc="data.get('department_name', 'Tous')"/></strong> &#160;|&#160;
                         Date d'édition : <strong><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></strong>
                     </div>
 
@@ -162,7 +162,13 @@
                                     <td><t t-esc="eq.department_id.name or '—'"/></td>
                                     <td><t t-esc="'{:,.0f}'.format(eq.purchase_value)"/></td>
                                     <td><t t-esc="eq.warranty_date or '—'"/></td>
-                                    <td><t t-esc="dict(eq.fields_get(allfields=['state'])['state']['selection'])[eq.state]"/></td>
+                                    <td>
+                                        <t t-if="eq.state == 'draft'">Brouillon</t>
+                                        <t t-elif="eq.state == 'assigned'">Affecté</t>
+                                        <t t-elif="eq.state == 'maintenance'">En maintenance</t>
+                                        <t t-elif="eq.state == 'retired'">Retiré</t>
+                                        <t t-else=""><t t-esc="eq.state"/></t>
+                                    </td>
                                 </tr>
                             </t>
                         </tbody>
@@ -201,7 +207,7 @@
 
                     <h2 class="report-title">Historique des Interventions de Maintenance</h2>
                     <div class="filters-info">
-                        Période : Du <strong><t t-esc="date_start"/></strong> au <strong><t t-esc="date_end"/></strong>
+                        Période : Du <strong><t t-esc="data.get('date_start', '—')"/></strong> au <strong><t t-esc="data.get('date_end', '—')"/></strong>
                     </div>
 
                     <table class="maint-table">
@@ -234,7 +240,7 @@
                         <tfoot>
                             <tr class="total-row">
                                 <td colspan="7" class="text-end">COÛT TOTAL DE MAINTENANCE :</td>
-                                <td><t t-esc="'{:,.0f}'.format(total_cost)"/> FCFA</td>
+                                <td><t t-esc="'{:,.0f}'.format(data.get('total_cost', 0))"/> FCFA</td>
                             </tr>
                         </tfoot>
                     </table>
